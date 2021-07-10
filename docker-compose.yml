@@ -1,0 +1,29 @@
+version: "3.0"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mariadb
+    ports:
+      - 3306:3306
+    restart: "unless-stopped"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./docker/mysql/:/etc/mysql/
+    env_file: ./config/${ENV}.env
+
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./docker/app/DockerFile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./logs/app:/www/app/logs
+    restart: "unless-stopped"
+    #env_file: ./config/${ENV}.env
+    environment:
+      FLASK_CONFIG: ../config/${ENV}.env
+    depends_on:
+      - mysql
