@@ -17,5 +17,5 @@ COPY . ./
 
 RUN pip install mysqlclient
 RUN pip install -r requirements.txt
-# RUN python ./src/manage.py db:migration
+
 CMD python ./src/manage.py run:prod

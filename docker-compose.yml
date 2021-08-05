@@ -10,7 +10,10 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./docker/mysql/:/etc/mysql/
-    env_file: ./config/${ENV}.env
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: dev
+      TZ: Asia/Seoul
 
   app:
     container_name: app

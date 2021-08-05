@@ -1,6 +1,7 @@
 from models.user import UserModel
 from repositories.user import UserRepository
 from dtos.user import CreateUserDTO
+from util.serialize import HttpError
 
 
 class UserService:
@@ -8,6 +9,8 @@ class UserService:
         self.repository = repository
 
     def create(self, dto: CreateUserDTO) -> UserModel:
+        if self.get_by_id(dto.id):
+            raise HttpError("DuplicateId", 409)
         user = dto.to_entity()
         self.repository.save(user)
         return user

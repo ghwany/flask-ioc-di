@@ -13,11 +13,11 @@ class BaseRepository:
     def find(self, **kwags) -> list:
         query = self._model.query
         if kwags:
-            query = query.filter_by(kwags)
+            query = query.filter_by(**kwags)
         return query.order_by("id").all()
 
     def findOne(self, **kwags) -> object:
         query = self._model.query
         if kwags:
-            query = query.filter_by(kwags)
+            query = query.filter_by(**kwags)
         return query.first()

@@ -29,9 +29,16 @@ def create_app():
     app = Flask(__name__)
     app.container = container
 
+    if "FLASK_CONFIG" not in os.environ:
+        os.environ["FLASK_CONFIG"] = "../config/{}.env".format(os.environ.get("ENV", "development"))
     app.config.from_envvar("FLASK_CONFIG")
-    app.config["SQLALCHEMY_DATABASE_URI"] = "{}://{}:{}@mysql:3306/{}?charset=utf8".format(
-        app.config["DBMS"], app.config["DB_USER"], app.config["DB_PASSWORD"], app.config["DB_NAME"]
+    app.config["SQLALCHEMY_DATABASE_URI"] = "{}://{}:{}@{}:{}/{}?charset=utf8".format(
+        app.config["DBMS"],
+        app.config["DB_USER"],
+        app.config["DB_PASSWORD"],
+        app.config["DB_HOST"],
+        app.config["DB_PORT"],
+        app.config["DB_NAME"],
     )
 
     app.register_blueprint(user.blueprint)

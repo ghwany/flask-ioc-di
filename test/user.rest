@@ -2,8 +2,8 @@ POST http://127.0.0.1:5000/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "id": "test@email.com",
-    "name": "test",
+    "id": "test3@email.com",
+    "name": "test3",
     "password": "password"
 }
 

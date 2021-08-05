@@ -13,7 +13,7 @@ blueprint = Blueprint("api_users", __name__, url_prefix="/api")
 @http_code(code=200)
 @inject
 def get_users(service: UserService = Provide[Container.user_service]):
-    return [u.to_dict() for u in service.repository.find()]
+    return [u.to_dict() for u in service.get_all()]
 
 
 @blueprint.route("/users", methods=["POST"])
@@ -22,4 +22,4 @@ def get_users(service: UserService = Provide[Container.user_service]):
 def create_user(service: UserService = Provide[Container.user_service]):
     dto = CreateUserDTO()
     dto.from_json(request.get_json(silent=True))
-    return service.repository.save(dto.to_entity().to_dict())
+    return service.create(dto).to_dict()
