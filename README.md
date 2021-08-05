@@ -2,7 +2,7 @@
 
 **Python3 Flask Toy project**
 
-성능, 보안, CI/CD, TDD에 대한 내용 정리
+Python Flask, IoC(Inversion of Control), DI(Dependency Injection)
 
 <br>
 
